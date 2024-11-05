@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:traffic_jam_mobile/data_source/api_data_source.dart';
 import 'package:traffic_jam_mobile/dto/client_model.dart';
 import 'package:traffic_jam_mobile/dto/enum_topic.dart';
+import 'package:traffic_jam_mobile/dto/location.dart';
 import 'package:traffic_jam_mobile/dto/response.dart';
 
 class TrafficController extends GetxController {
@@ -69,16 +70,17 @@ class TrafficController extends GetxController {
         case Topic.getId:
           break;
         case Topic.getTrafficJam:
-          final start = GeoPoint(latitude: 45.0, longitude: 25.0);
-          final end = GeoPoint(latitude: 45.02, longitude: 25.02);
+          final locStart =LocationModel.fromMap(rs.data['startLocation']);
+          final locEnd = LocationModel.fromMap(rs.data['endLocation']);
+          final start = GeoPoint(latitude: locStart.lat??0, longitude: locStart.long??0);
+          final end = GeoPoint(latitude: locEnd.lat??0, longitude: locEnd.long??0);
 
-          mapController.drawRoad(
-            start,
-            end,
-            roadOption: RoadOption(
+          mapController.drawRoadManually([start, end,],
+            RoadOption(
             roadColor: Colors.red,
             roadWidth: 5.0,  )
           );
+
           break;
         case Topic.updateClient:
           final ClientModel c = ClientModel.fromMap(rs.data);
