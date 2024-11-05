@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
@@ -11,7 +10,7 @@ class ApiDataSourceImpl implements ApiDataSource {
   void connect(void Function(String? data, bool isLoading) callback) async {
     try {
       callback(null, true);
-      final socket = await Socket.connect('10.10.30.65', 8080);
+      final socket = await Socket.connect('10.10.30.65', 8080,timeout: Duration(seconds: 5));
 
       socket.listen((a) {
         final data = String.fromCharCodes(a);

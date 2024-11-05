@@ -78,7 +78,7 @@ class TrafficController extends GetxController {
           mapController.drawRoadManually([start, end,],
             RoadOption(
             roadColor: Colors.red,
-            roadWidth: 5.0,  )
+            roadWidth: 15,  )
           );
 
           break;
